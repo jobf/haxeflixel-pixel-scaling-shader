@@ -8,10 +8,14 @@ import openfl.filters.ShaderFilter;
 
 class PlayState extends FlxState
 {
+	var isFilterEnabled:Bool;
+
 	override public function create()
 	{
 		super.create();
-		FlxG.camera.setFilters([new ShaderFilter(new PixelScaleShader())]);
+		isFilterEnabled = true;
+		setFilter();
+
 		add(new FlxSprite(0, 0, "assets/images/pixel-grid.png"));
 
 		var sqSize = 4;
@@ -27,8 +31,25 @@ class PlayState extends FlxState
 		}
 	}
 
+	function setFilter()
+	{
+		if (isFilterEnabled)
+		{
+			FlxG.camera.setFilters([new ShaderFilter(new PixelScaleShader())]);
+		}
+		else
+		{
+			FlxG.camera.setFilters([]);
+		}
+	}
+
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
+		if (FlxG.keys.justPressed.F)
+		{
+			isFilterEnabled = !isFilterEnabled;
+			setFilter();
+		}
 	}
 }
