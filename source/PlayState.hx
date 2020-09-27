@@ -1,6 +1,6 @@
 package;
 
-import flixel.text.FlxText;
+import flixel.FlxSprite;
 import flixel.FlxState;
 
 class PlayState extends FlxState
@@ -8,7 +8,7 @@ class PlayState extends FlxState
 	override public function create()
 	{
 		super.create();
-		add(new FlxText("Hello World", 32).screenCenter());
+		add(new FlxSprite(0, 0, "assets/images/pixel-grid.png"));
 	}
 
 	override public function update(elapsed:Float)
