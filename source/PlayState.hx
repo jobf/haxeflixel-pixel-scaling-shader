@@ -9,10 +9,15 @@ import openfl.filters.ShaderFilter;
 class PlayState extends FlxState
 {
 	var isFilterEnabled:Bool;
+	var shader:PixelScaleShader;
+	var scale = 4;
+	var minScale = 2;
+	var maxScale = 128;
 
 	override public function create()
 	{
 		super.create();
+		shader = new PixelScaleShader();
 		isFilterEnabled = true;
 		setFilter();
 
@@ -25,6 +30,7 @@ class PlayState extends FlxState
 		var transparentSpriteDiagonal = new FlxSprite(8, 32, "assets/images/yellowX.png");
 		transparentSpriteDiagonal.angularVelocity = 5;
 		add(transparentSpriteDiagonal);
+
 		var sqSize = 4;
 		var colors = [FlxColor.RED, FlxColor.GREEN, FlxColor.BLUE, FlxColor.WHITE];
 		for (y in 0...1)
@@ -42,7 +48,7 @@ class PlayState extends FlxState
 	{
 		if (isFilterEnabled)
 		{
-			FlxG.camera.setFilters([new ShaderFilter(new PixelScaleShader())]);
+			FlxG.camera.setFilters([new ShaderFilter(shader)]);
 		}
 		else
 		{
@@ -57,6 +63,22 @@ class PlayState extends FlxState
 		{
 			isFilterEnabled = !isFilterEnabled;
 			setFilter();
+		}
+		if (FlxG.keys.justPressed.UP)
+		{
+			if (scale < maxScale)
+			{
+				scale = scale * 2;
+			}
+			shader.setScale(scale);
+		}
+		if (FlxG.keys.justPressed.DOWN)
+		{
+			if (scale > minScale)
+			{
+				scale = Math.round(scale / 2.0);
+			}
+			shader.setScale(scale);
 		}
 	}
 }
