@@ -5,7 +5,7 @@ class PixelScaleShader extends FlxShader
 	@:glFragmentSource("
 	#pragma header
 
-	const float scale = 4.0;
+	uniform float scale;
 
 	void main()
 	{
@@ -20,8 +20,21 @@ class PixelScaleShader extends FlxShader
 		gl_FragColor = texture2D(bitmap, tCoord);
 	}
     ")
-	public function new()
+	public function new(scale:Int = 4)
 	{
 		super();
+		setScale(scale);
+	}
+
+	public function setScale(scale:Int)
+	{
+		if (scale % 2 == 0)
+		{
+			this.scale.value = [scale * 1.0];
+		}
+		else
+		{
+			throw "Scale factor must be an even number.";
+		}
 	}
 }
