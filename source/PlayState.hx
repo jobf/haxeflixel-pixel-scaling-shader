@@ -18,6 +18,13 @@ class PlayState extends FlxState
 
 		add(new FlxSprite(0, 0, "assets/images/pixel-grid.png"));
 
+		var transparentSprite = new FlxSprite(8, 8, "assets/images/yellow+.png");
+		transparentSprite.angularVelocity = 5;
+		add(transparentSprite);
+
+		var transparentSpriteDiagonal = new FlxSprite(8, 32, "assets/images/yellowX.png");
+		transparentSpriteDiagonal.angularVelocity = 5;
+		add(transparentSpriteDiagonal);
 		var sqSize = 4;
 		var colors = [FlxColor.RED, FlxColor.GREEN, FlxColor.BLUE, FlxColor.WHITE];
 		for (y in 0...1)
